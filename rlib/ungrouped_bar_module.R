@@ -15,9 +15,19 @@ ungrouped_barUI <- function(id) {
     h4("1. Usage"),
     tags$ol(
       tags$li("Upload data file, whose columns must have headers and be separated by '\\t', or ',' (i.e., '.tsv', or '.csv' file)."),
-      tags$li("Set plotting parameters. For axis titles and labels, Markdown or HTML style is supported now (e.g., using <sup>2+</sup> to let 2+ be a superscript). For detailed usage of the two, you can search 'the basic language grammar of Markdown or HTML' in any your favorite search engine."),
+      tags$li("Set plotting parameters."),
       tags$li("Adjust the width and height of the plot."),
       tags$li("If the plot is as expected, a PDF version of the plot is downloadable.")
+    ),
+    tags$b("Note: for axis titles and labels, the styles of Markdown or HTML are now supported. The followings are Markdown or HTML tags commonly used when drawing plot."),
+    tags$ul(
+      tags$li("Superscript: ", HTML(r"(<code>Ca&lt;sup&gt;2+&lt;/sup&gt;</code>&nbsp;&rarr;&nbsp;Ca<sup>2+</sup>.)")),
+      tags$li("Subscript: ", HTML(r"(<code>H&lt;sub&gt;2&lt;/sub&gt;0</code>&nbsp;&rarr;&nbsp;H<sub>2</sub>0.)")),
+      tags$li("Bold: ", HTML(r"(<code>A&lt;b&gt;BC&lt;/b&gt;D</code>&nbsp;&rarr;&nbsp;A<b>BC</b>D.)")),
+      tags$li("Italic: ", HTML(r"(<code>A&lt;i&gt;BC&lt;/i&gt;D</code>&nbsp;&rarr;&nbsp;A<i>BC</i>D.)")),
+      tags$li("Color: ", HTML(r"(<code>&lt;span style="color:red"&gt;Red&lt;/span&gt;</code>&nbsp;&rarr;&nbsp;<span style="color:red">Red</span>.)")),
+      tags$li("Newline: ", HTML(r"(<code>&lt;br&gt;</code>.)")),
+      tags$li("Tips: tags can be nested within each other, and most tags also contain attributes like ", HTML(r"(<code>style="color:red; font-size:12px; font-family: 'Microsoft Yahei'"</code>)"), ". For more tags of Markdown or HTML, and their attributes, you can search their usages in your favorite search engine. e.g., ", HTML(r"(<code>&lt;i style="color:red; font-size:12px; font-family: 'Times New Roman'"&gt;Times &lt;b&gt;New&lt;/b&gt; Roman&lt;/i&gt;</code>&nbsp;&rarr;&nbsp;<i style="color:red; font-size:12px; font-family: 'Times New Roman'">Times <b>New</b> Roman</i>.)"))
     ),
     
     h4("2. Upload Data File"),
@@ -235,6 +245,7 @@ ungrouped_barServer <- function(id, session_id) {
       raw_data() %>% 
         select(all_of(c(input$group_variable, input$value_variable))) %>% 
         set_colnames(c("group", "value")) %>% 
+        filter(group %in% group_levels()) %>% 
         mutate(group = factor(group, levels = group_levels()))
     })
     
