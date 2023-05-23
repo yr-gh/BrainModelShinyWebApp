@@ -15,7 +15,7 @@ ungrouped_violinUI <- function(id) {
     h4("1. Usage"),
     tags$ol(
       tags$li("Upload data file, whose columns must have headers and be separated by '\\t', or ',' (i.e., '.tsv', or '.csv' file)."),
-      tags$li("Set plotting parameters. For axis titles and labels, Markdown or HTML style is supported now (e.g., using <sup>2+</sup> to let 2+ be a superscript). For detailed usage of the two, you can search 'the basic language grammar of Markdown or HTML' in any your favorite search engine."),
+      tags$li("Set plotting parameters."),
       tags$li("Adjust the width and height of the plot."),
       tags$li("If the plot is as expected, a PDF version of the plot is downloadable.")
     ),
